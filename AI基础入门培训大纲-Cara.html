@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AI基础入门培训大纲-Cara</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Microsoft YaHei', 'SimSun', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* 布局容器 */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 左侧目录 */
+        .sidebar {
+            width: 280px;
+            background: #f7f8fc;
+            border-right: 1px solid #e8eaed;
+            padding: 24px 16px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar h3 {
+            color: #1f2329;
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 1px solid #e8eaed;
+            padding-bottom: 12px;
+        }
+        
+        .toc {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #646a73;
+            display: block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .toc a:hover {
+            background: #eff0f1;
+            color: #1f2329;
+        }
+        
+        .toc .level-1 {
+            font-weight: 600;
+            color: #1f2329;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        
+        .toc .level-2 {
+            padding-left: 24px;
+            font-size: 13px;
+            color: #86909c;
+        }
+        
+        .toc .level-3 {
+            padding-left: 36px;
+            font-size: 13px;
+            color: #86909c;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #1f2329;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        h2 {
+            color: #1f2329;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            border-left: none;
+            padding-left: 0;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        h3 {
+            color: #1f2329;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        h4 {
+            color: #1f2329;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f7f8fc;
+            color: #1f2329;
+            font-weight: 600;
+            border-bottom: 2px solid #e8eaed;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        
+        .callout {
+            background: #f7f8fc;
+            border: 1px solid #e8eaed;
+            border-left: 4px solid #3370ff;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 6px;
+            box-shadow: none;
+        }
+        
+        .callout-warning {
+            background: #fffbf0;
+            border: 1px solid #f5e6a3;
+            border-left: 4px solid #ff8800;
+        }
+        
+        .callout-success {
+            background: #f0f9f0;
+            border: 1px solid #b3d9b3;
+            border-left: 4px solid #52c41a;
+        }
+        
+        .callout-info {
+            background: #f0f7ff;
+            border: 1px solid #b3d9ff;
+            border-left: 4px solid #3370ff;
+        }
+        
+        ul, ol {
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 8px;
+        }
+        
+        strong {
+            color: #1f2329;
+            font-weight: 600;
+        }
+        
+        .highlight {
+            background: #fffbf0;
+            color: #d46b08;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧目录导航 -->
+        <div class="sidebar">
+            <h3><span class="emoji">📋</span> 培训大纲</h3>
+            <ul class="toc">
+                <li><a href="#section-1" class="level-1"><span class="emoji">🎯</span> 一、培训定位</a></li>
+                <li><a href="#goals" class="level-2">培训目标</a></li>
+                <li><a href="#theme" class="level-2">培训主题</a></li>
+                
+                <li><a href="#section-2" class="level-1"><span class="emoji">📚</span> 二、培训主线</a></li>
+                <li><a href="#part0" class="level-2">Part 0: 开场与定调</a></li>
+                <li><a href="#architecture" class="level-3">AI智能体架构</a></li>
+                <li><a href="#part1" class="level-2">Part 1: 认知讲透</a></li>
+                <li><a href="#part2" class="level-2">Part 2: 市场AI能力</a></li>
+                <li><a href="#part3" class="level-2">Part 3: 岗位场景</a></li>
+                <li><a href="#content-production" class="level-3">3.1 内容生产协同</a></li>
+                <li><a href="#knowledge-reuse" class="level-3">3.2 知识沉淀复用</a></li>
+                <li><a href="#monitoring" class="level-3">3.3 监测洞察复盘</a></li>
+                <li><a href="#automation" class="level-3">3.4 流程自动化</a></li>
+                <li><a href="#creativity" class="level-3">3.5 创意生成设计</a></li>
+                
+                <li><a href="#part4" class="level-1"><span class="emoji">⚠️</span> Part 4: 边界、风险与误区</a></li>
+                <li><a href="#risks" class="level-2">常见误区</a></li>
+                <li><a href="#security" class="level-2">安全考虑</a></li>
+                
+                <li><a href="#part5" class="level-1"><span class="emoji">🚀</span> Part 5: 结尾与落地</a></li>
+                <li><a href="#next-steps" class="level-2">明天就能开始的3件事</a></li>
+                
+                <li><a href="#methodology" class="level-1"><span class="emoji">🛠️</span> 三、核心方法论</a></li>
+                <li><a href="#mindset" class="level-2">思维模式转变</a></li>
+                <li><a href="#tools" class="level-2">工具选择策略</a></li>
+                <li><a href="#implementation" class="level-2">实施路径</a></li>
+                
+                <li><a href="#action-list" class="level-1"><span class="emoji">✅</span> 四、行动清单</a></li>
+            </ul>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <h1 id="title"><span class="emoji">🤖</span> AI基础入门培训大纲-Cara</h1>
+            <p style="font-size: 16px; color: #7f8c8d; font-weight: bold;">主题：让AI成为日常工作的第二执行系统 - <span class="highlight">认知升级 × 方法论</span></p>
+            
+            <h2 id="section-1"><span class="emoji">🎯</span> 一、培训定位</h2>
+            
+            <h3 id="goals">培训目标</h3>
+            <ul>
+                <li>建立正确的AI认知框架</li>
+                <li>掌握实用的AI工具和方法</li>
+                <li>将AI整合到日常工作流程中，成为"第二执行系统"</li>
+            </ul>
+            
+            <h3 id="theme">培训主题</h3>
+            <div class="callout callout-info">
+                <strong>认知升级 × 方法论</strong> - 从"一次性灵感"转向"可复用能力"
+            </div>
+            
+            <h2 id="section-2"><span class="emoji">📚</span> 二、培训主线</h2>
+            
+            <h3 id="part0">Part 0: 开场与定调 (10分钟)</h3>
+            <ul>
+                <li>为什么大家都在用AI？</li>
+                <li>AI的定义与本质认知</li>
+                <li>极简名词翻译：你在雇佣一个怎样的"员工"？</li>
+            </ul>
+            
+            <h4 id="architecture">AI智能体五层架构理解</h4>
+            <ol>
+                <li><strong>LLM (大语言模型)</strong> - 极其聪明但没上过班的"应届毕业生"</li>
+                <li><strong>AI应用</strong> - 员工的"办公桌"(交互界面)</li>
+                <li><strong>Prompt & RAG</strong> - 随身携带的"岗位SOP与企业资料库"</li>
+                <li><strong>Workflow & Skill</strong> - 标准化的"业务流水线"</li>
+                <li><strong>Agent (智能体)</strong> - 能接活、拆解任务的"自主执行者"</li>
+            </ol>
+            
+            <div class="callout callout-warning">
+                <strong>关键认知</strong>: Agent不是魔法，智商依赖底层LLM，执行力依赖你给的Workflow和业务知识
+            </div>
+            
+            <h3 id="part1">Part 1: 先把认知讲透</h3>
+            <ul>
+                <li>AI到底能做什么？</li>
+                <li>AI能力边界与应用场景</li>
+                <li>建立正确的AI使用心态</li>
+            </ul>
+            
+            <h3 id="part2">Part 2: 市场AI能力可选项</h3>
+            <ul>
+                <li>主流AI工具生态介绍</li>
+                <li>工具选择与评估标准</li>
+                <li>不同场景的最佳工具推荐</li>
+            </ul>
+            
+            <h3 id="part3">Part 3: 按岗位场景讲——AI如何进入日常</h3>
+            
+            <h4 id="content-production">3.1 内容生产与策划协同</h4>
+            <p><strong>适用部门：</strong> 新媒体、内容营销、品牌策划</p>
+            
+            <p><strong>核心转变：</strong></p>
+            <ul>
+                <li>从"找灵感"改写成"选方向"</li>
+                <li>从"模糊经验"变成"可表达规则"</li>
+            </ul>
+            
+            <div class="callout">
+                <p><strong>💡 实践案例：小红书自动选题流程</strong>（使用Coze Skill）</p>
+                <ul>
+                    <li><strong>输入</strong>：创作者领域、账号定位、目标人群、当前热点、内容目标</li>
+                    <li><strong>输出</strong>：5-10个明确选题方向，包含标题候选、内容切角、内容大纲</li>
+                    <li><strong>本质</strong>：把"模糊经验"变成"可表达规则"</li>
+                </ul>
+            </div>
+            
+            <p><strong>推荐工具：</strong></p>
+            <ul>
+                <li><strong>扣子 (Coze) 2.0</strong>：品牌案例知识库、活动FAQ、直播SOP Agent</li>
+                <li><strong>飞书 aily</strong>：企业知识问答、跨文档检索、内部助手</li>
+            </ul>
+            
+            <h4 id="knowledge-reuse">3.2 知识沉淀与经验复用</h4>
+            <p><strong>定位：</strong> 分水岭——从"个人会用AI"提升到"团队能复用AI"</p>
+            <p><strong>核心价值：</strong> 把过往经验、规则、案例变成可检索、可用、可约束输出的上下文</p>
+            
+            <h4 id="monitoring">3.3 监测、洞察与复盘</h4>
+            
+            <div class="callout callout-warning">
+                <strong>⚠️ 核心警示：</strong> 这是最容易被高估的场景，难点不在总结，而在于如何拿到合适的数据
+            </div>
+            
+            <p><strong>典型解法：</strong></p>
+            <ol>
+                <li><strong>分层处理</strong>：将"数据采集"与"AI分析"剥离</li>
+                <li><strong>去神化</strong>：AI负责聚类、摘要和预警</li>
+                <li><strong>小步快跑</strong>：先用现有数据验证AI价值</li>
+            </ol>
+            
+            <h4 id="automation">3.4 流程自动化与Agent执行</h4>
+            <p><strong>定位：</strong> 最接近"智能体真正进入工作流"，最容易产生稳定价值</p>
+            
+            <p><strong>任务共同点：</strong></p>
+            <ul>
+                <li><strong>高频、重复</strong> - 节省人力价值大</li>
+                <li><strong>规则相对清楚</strong> - AI易于理解执行</li>
+                <li><strong>结果可复核</strong> - 人类可快速判断对错</li>
+            </ul>
+            
+            <h4 id="creativity">3.5 创意生成与轻设计</h4>
+            <p><strong>适用部门：</strong> 设计、品牌营销、新媒体、行政支持</p>
+            <p><strong>核心理念：</strong> AI的价值在于"降低试错成本"，而非"替代审美判断"</p>
+            
+            <p><strong>典型任务：</strong></p>
+            <ul>
+                <li>海报概念稿</li>
+                <li>视觉方向探索</li>
+                <li>短视频画面草案</li>
+                <li>提案包装</li>
+                <li>素材延展</li>
+            </ul>
+            
+            <p><strong>核心原则：</strong> AI更适合前置到探索和发散阶段</p>
+            
+            <p><strong>典型解法：</strong></p>
+            <ol>
+                <li><strong>AI用于"先出方向"</strong> - 定调子，非最终成品</li>
+                <li><strong>多选一原则</strong> - 生成多套方案，人工筛选</li>
+                <li><strong>Prompt升级</strong> - 构建详尽的"视觉说明书"</li>
+            </ol>
+            
+            <h2 id="part4"><span class="emoji">⚠️</span> Part 4: 边界、风险与误区</h2>
+            
+            <h3 id="risks">常见误区</h3>
+            <div class="callout callout-warning">
+                <p><strong>误区1：AI写得像真的一样，不代表它懂公司</strong></p>
+                <p>AI可能生成看似专业的内容，但缺乏真实的业务理解和上下文判断。</p>
+            </div>
+            
+            <ul>
+                <li><strong>过度信任</strong>：认为AI能完全替代人工判断</li>
+                <li><strong>一步到位</strong>：期望AI立即解决所有问题</li>
+                <li><strong>忽视验证</strong>：不对AI输出进行人工审核</li>
+                <li><strong>数据盲区</strong>：忽视AI训练数据的局限性</li>
+            </ul>
+            
+            <h3 id="security">安全考虑</h3>
+            <div class="callout callout-warning">
+                <p><strong>数据安全与隐私保护</strong></p>
+            </div>
+            
+            <ul>
+                <li><strong>敏感信息</strong>：避免将公司机密、客户隐私输入AI工具</li>
+                <li><strong>合规要求</strong>：了解所在行业的AI使用合规标准</li>
+                <li><strong>工具选择</strong>：优先选择有安全保障的企业级AI服务</li>
+                <li><strong>权限管控</strong>：建立AI工具的使用权限和审批流程</li>
+            </ul>
+            
+            <div class="callout">
+                <p><strong>💡 建议原则</strong></p>
+                <ul>
+                    <li>AI是助手，不是替代品</li>
+                    <li>始终保持人工最终审核</li>
+                    <li>从小范围试点开始</li>
+                    <li>建立使用规范和最佳实践</li>
+                </ul>
+            </div>
+            
+            <h2 id="part5"><span class="emoji">🚀</span> Part 5: 结尾与落地建议</h2>
+            
+            <h3 id="next-steps">每个人明天就能开始做的3件事</h3>
+            
+            <div class="callout callout-success">
+                <p><strong>立即行动清单：</strong></p>
+                <ol>
+                    <li><strong>选择一个高频重复的工作任务</strong>
+                        <br><small>例如：日报写作、会议纪要、内容策划、数据分析等</small>
+                    </li>
+                    <li><strong>尝试用AI工具优化其中一个环节</strong>
+                        <br><small>从最简单的环节开始，如：信息整理、初稿生成、格式规范化</small>
+                    </li>
+                    <li><strong>记录效果并分享给团队</strong>
+                        <br><small>记录：用了什么工具、解决什么问题、效果如何、遇到什么困难</small>
+                    </li>
+                </ol>
+            </div>
+            
+            <p><strong>培训后的跟进计划：</strong></p>
+            <ul>
+                <li><strong>1周后</strong>：收集实践反馈，解决遇到的问题</li>
+                <li><strong>1个月后</strong>：分享最佳实践案例，形成团队知识库</li>
+                <li><strong>3个月后</strong>：评估整体效果提升，制定下一阶段目标</li>
+            </ul>
+            
+            <div class="callout callout-info">
+                <p><strong>🎯 成功标准</strong></p>
+                <p>培训成功的标志不是每个人都成为AI专家，而是每个人都能在日常工作中自然地使用AI工具提升效率，并且知道什么时候该用、什么时候不该用。</p>
+            </div>
+            
+            <h2 id="methodology"><span class="emoji">🛠️</span> 三、核心方法论</h2>
+            
+            <h3 id="mindset">1. 思维模式转变</h3>
+            <ul>
+                <li><strong>从一次性输出 → 可复用能力</strong></li>
+                <li><strong>从个人经验 → 团队资产</strong></li>
+                <li><strong>从被动响应 → 主动预判</strong></li>
+            </ul>
+            
+            <h3 id="tools">2. 工具选择策略</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>工具</th>
+                        <th>适用场景</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>扣子 (Coze)</strong></td>
+                        <td>复杂逻辑、多步流程、定制化Agent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>飞书 aily</strong></td>
+                        <td>企业内部文档检索、办公辅助</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kimi</strong></td>
+                        <td>长文本分析、数据处理</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3 id="implementation">3. 实施路径</h3>
+            <ol>
+                <li>先解构现有工作流程</li>
+                <li>识别可AI化的环节</li>
+                <li>构建结构化的输入输出</li>
+                <li>验证效果后迭代优化</li>
+                <li>团队化推广复用</li>
+            </ol>
+            
+            <h2 id="action-list"><span class="emoji">✅</span> 四、行动清单</h2>
+            
+            <div class="callout callout-success">
+                <p><strong>每个人明天就能开始做的3件事：</strong></p>
+                <ol>
+                    <li>选择一个高频重复的工作任务</li>
+                    <li>尝试用AI工具优化其中一个环节</li>
+                    <li>记录效果并分享给团队</li>
+                </ol>
+            </div>
+            
+            <p><strong>培训后的跟进计划：</strong></p>
+            <ul>
+                <li><strong>1周后</strong>：收集实践反馈</li>
+                <li><strong>1个月后</strong>：分享最佳实践案例</li>
+                <li><strong>3个月后</strong>：评估整体效果提升</li>
+            </ul>
+            
+            <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; text-align: center; color: #7f8c8d; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <p style="margin: 5px 0; font-weight: bold;">— AI基础入门培训大纲 —</p>
+                <p style="margin: 5px 0; font-style: italic;">让AI成为日常工作的第二执行系统</p>
+                <p style="margin: 10px 0; font-size: 13px; color: #95a5a6;">✨ 由 Cara 整理制作</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // 高亮当前章节
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('h2, h3, h4');
+            const tocLinks = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.style.backgroundColor = '';
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.backgroundColor = '#3498db';
+                    link.style.color = 'white';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
